@@ -1,7 +1,0 @@
-@mixin persistent-cart-share-widget-url-mask-generator($name: '.url-mask-generator') {
-    #{$name} {
-        position: relative;
-
-        @content;
-    }
-}

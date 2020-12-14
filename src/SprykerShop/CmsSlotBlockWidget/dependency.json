@@ -1,6 +1,0 @@
-{
-  "include": {
-    "spryker-shop/shop-cms-slot": "ShopCmsSlotTwigPlugin provides slot content functionality.",
-    "spryker/transfer": "Provides transfer objects definition with associative functionality."
-  }
-}

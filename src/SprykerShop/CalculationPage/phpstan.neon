@@ -1,6 +1,0 @@
-parameters:
-    checkMissingIterableValueType: false
-    dynamicConstantNames:
-        - APPLICATION
-        - APPLICATION_ENV
-        - APPLICATION_STORE

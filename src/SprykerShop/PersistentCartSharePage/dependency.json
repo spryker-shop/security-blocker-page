@@ -1,5 +1,0 @@
-{
-  "include": {
-    "spryker-shop/cart-page": "CartPreview view is based on template from CartPage."
-  }
-}

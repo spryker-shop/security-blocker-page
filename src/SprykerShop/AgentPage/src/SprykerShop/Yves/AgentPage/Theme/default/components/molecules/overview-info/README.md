@@ -1,1 +1,0 @@
-Displays company overview information.
