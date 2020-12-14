@@ -1,9 +1,0 @@
-{% extends model('component') %}
-
-{% define config = {
-    name: 'subscription'
-} %}
-
-{% block body %}
-    {{ render(path('newsletter/subscribe')) }}
-{% endblock %}

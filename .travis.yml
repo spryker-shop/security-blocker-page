@@ -1,15 +1,15 @@
 language: php
-dist: trusty
-
-git:
-    depth: 3
 
 php:
     - 7.3
+    - 7.4
 
-cache:
-    directories:
-        - $HOME/.composer/cache
+matrix:
+    fast_finish: true
+
+    include:
+        -   php: 7.3
+            env: PREFER_LOWEST=1
 
 env:
     global:
@@ -18,15 +18,17 @@ env:
 
 before_install:
     - phpenv config-rm xdebug.ini
-    - nvm install 10
 
 install:
-    - composer install --no-interaction --prefer-dist --optimize-autoloader
-    - npm install -g git+https://github.com/spryker-sdk/frontend-sniffer.git#semver:^0.2.2
+    - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction
+    - if [[ $PREFER_LOWEST == 1 ]]; then COMPOSER_MEMORY_LIMIT=-1 composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction ; fi
+    - if [[ $PREFER_LOWEST == 1 ]]; then COMPOSER_MEMORY_LIMIT=-1 composer require --dev dereuromark/composer-prefer-lowest; fi
 
 script:
-    - composer cs-check
-    - frontend-sniffer --config ./ --path ../../ --level-restriction core
+    - find ./src -path src -prune -o -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
 
-notifications:
-    email: false
+    - if [[ $PREFER_LOWEST == 1 ]]; then vendor/bin/validate-prefer-lowest || true; fi
+
+cache:
+    directories:
+        - $HOME/.composer/cache/

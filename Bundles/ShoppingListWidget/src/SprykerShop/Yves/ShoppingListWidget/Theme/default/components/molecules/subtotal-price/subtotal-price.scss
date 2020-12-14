@@ -1,7 +1,0 @@
-@mixin shopping-list-widget-subtotal-price($name: '.subtotal-price') {
-    #{$name} {
-        background-color: $setting-color-lighter;
-
-        @content;
-    }
-}

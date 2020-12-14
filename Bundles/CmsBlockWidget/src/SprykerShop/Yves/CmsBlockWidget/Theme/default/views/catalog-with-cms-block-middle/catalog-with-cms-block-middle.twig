@@ -1,9 +1,0 @@
-{% extends template('widget') %}
-
-{% define data = {
-    idCategory: _widget.idCategory
-} %}
-
-{% block body %}
-    {{ spyCmsBlock({category: data.idCategory, position: 'middle'}) }}
-{% endblock %}

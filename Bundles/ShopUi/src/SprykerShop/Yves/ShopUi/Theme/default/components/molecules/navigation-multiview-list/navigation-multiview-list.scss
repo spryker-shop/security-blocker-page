@@ -1,9 +1,0 @@
-@mixin shop-ui-navigation-multiview-list($name: '.navigation-multiview-list') {
-    #{$name} {
-        &__icon {
-            color: $setting-color-dark;
-        }
-
-        @content;
-    }
-}
