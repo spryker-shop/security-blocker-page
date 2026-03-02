@@ -23,9 +23,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class SecurityBlockerPageFactory extends AbstractFactory
 {
-    /**
-     * @return \Symfony\Component\EventDispatcher\EventSubscriberInterface
-     */
     public function createSecurityBlockerCustomerEventSubscriber(): EventSubscriberInterface
     {
         return new SecurityBlockerCustomerEventSubscriber(
@@ -38,9 +35,6 @@ class SecurityBlockerPageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Symfony\Component\EventDispatcher\EventSubscriberInterface
-     */
     public function createSecurityBlockerAgentEventSubscriber(): EventSubscriberInterface
     {
         return new SecurityBlockerAgentEventSubscriber(
@@ -53,49 +47,31 @@ class SecurityBlockerPageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \SprykerShop\Yves\SecurityBlockerPage\Builder\MessageBuilderInterface
-     */
     public function createMessageBuilder(): MessageBuilderInterface
     {
         return new MessageBuilder($this->getGlossaryStorageClient());
     }
 
-    /**
-     * @return \SprykerShop\Yves\SecurityBlockerPage\Dependency\Client\SecurityBlockerPageToSecurityBlockerClientInterface
-     */
     public function getSecurityBlockerClient(): SecurityBlockerPageToSecurityBlockerClientInterface
     {
         return $this->getProvidedDependency(SecurityBlockerPageDependencyProvider::CLIENT_SECURITY_BLOCKER);
     }
 
-    /**
-     * @return \SprykerShop\Yves\SecurityBlockerPage\Dependency\Client\SecurityBlockerPageToGlossaryStorageClientInterface
-     */
     public function getGlossaryStorageClient(): SecurityBlockerPageToGlossaryStorageClientInterface
     {
         return $this->getProvidedDependency(SecurityBlockerPageDependencyProvider::CLIENT_GLOSSARY_STORAGE);
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\RequestStack
-     */
     public function getRequestStack(): RequestStack
     {
         return $this->getProvidedDependency(SecurityBlockerPageDependencyProvider::SERVICE_REQUEST_STACK);
     }
 
-    /**
-     * @return string
-     */
     public function getLocale(): string
     {
         return $this->getProvidedDependency(SecurityBlockerPageDependencyProvider::SERVICE_LOCALE);
     }
 
-    /**
-     * @return \SprykerShop\Yves\SecurityBlockerPage\Dependency\Client\SecurityBlockerPageToStoreClientInterface
-     */
     public function getStoreClient(): SecurityBlockerPageToStoreClientInterface
     {
         return $this->getProvidedDependency(SecurityBlockerPageDependencyProvider::CLIENT_STORE);

@@ -25,21 +25,11 @@ class SecurityBlockerPageToSecurityBlockerClientBridge implements SecurityBlocke
         $this->securityBlockerClient = $securityBlockerClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer
-     *
-     * @return \Generated\Shared\Transfer\SecurityCheckAuthResponseTransfer
-     */
     public function incrementLoginAttemptCount(SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer): SecurityCheckAuthResponseTransfer
     {
         return $this->securityBlockerClient->incrementLoginAttemptCount($securityCheckAuthContextTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer
-     *
-     * @return \Generated\Shared\Transfer\SecurityCheckAuthResponseTransfer
-     */
     public function isAccountBlocked(SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer): SecurityCheckAuthResponseTransfer
     {
         return $this->securityBlockerClient->isAccountBlocked($securityCheckAuthContextTransfer);

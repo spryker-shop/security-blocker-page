@@ -11,11 +11,5 @@ use Generated\Shared\Transfer\SecurityCheckAuthResponseTransfer;
 
 interface MessageBuilderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthResponseTransfer $securityCheckAuthResponseTransfer
-     * @param string $localeName
-     *
-     * @return string
-     */
     public function getExceptionMessage(SecurityCheckAuthResponseTransfer $securityCheckAuthResponseTransfer, string $localeName): string;
 }

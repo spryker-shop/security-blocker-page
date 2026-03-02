@@ -49,14 +49,6 @@ class SecurityBlockerCustomerEventSubscriber implements EventSubscriberInterface
      */
     protected const KERNEL_REQUEST_SUBSCRIBER_PRIORITY = 9;
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \SprykerShop\Yves\SecurityBlockerPage\Dependency\Client\SecurityBlockerPageToSecurityBlockerClientInterface $securityBlockerClient
-     * @param \SprykerShop\Yves\SecurityBlockerPage\Builder\MessageBuilderInterface $messageBuilder
-     * @param \SprykerShop\Yves\SecurityBlockerPage\SecurityBlockerPageConfig $securityBlockerPageConfig
-     * @param string $localeName
-     * @param \SprykerShop\Yves\SecurityBlockerPage\Dependency\Client\SecurityBlockerPageToStoreClientInterface $storeClient
-     */
     public function __construct(
         protected RequestStack $requestStack,
         protected SecurityBlockerPageToSecurityBlockerClientInterface $securityBlockerClient,
@@ -78,9 +70,6 @@ class SecurityBlockerCustomerEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @return void
-     */
     public function onAuthenticationFailure(): void
     {
         $request = $this->requestStack->getCurrentRequest();
@@ -122,11 +111,6 @@ class SecurityBlockerCustomerEventSubscriber implements EventSubscriberInterface
         throw new HttpException(Response::HTTP_TOO_MANY_REQUESTS, $exceptionMessage);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool
-     */
     protected function isLoginAttempt(Request $request): bool
     {
         $currentRoute = $request->attributes->get('_route');
@@ -145,11 +129,6 @@ class SecurityBlockerCustomerEventSubscriber implements EventSubscriberInterface
         return $currentRoute === static::LOGIN_ROUTE && $request->getMethod() === Request::METHOD_POST;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer
-     */
     protected function createSecurityCheckAuthContextTransfer(Request $request): SecurityCheckAuthContextTransfer
     {
         $securityCheckAuthContextTransfer = (new SecurityCheckAuthContextTransfer())
@@ -163,12 +142,6 @@ class SecurityBlockerCustomerEventSubscriber implements EventSubscriberInterface
         return $securityCheckAuthContextTransfer;
     }
 
-    /**
-     * @param string $route
-     * @param string $prefix
-     *
-     * @return string
-     */
     protected function removePrefix(string $route, string $prefix): string
     {
         return ltrim(mb_substr($route, mb_strlen($prefix)), '_');

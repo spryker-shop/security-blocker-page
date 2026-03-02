@@ -32,11 +32,6 @@ class SecurityBlockerPageTester extends Actor
 {
     use _generated\SecurityBlockerPageTesterActions;
 
-    /**
-     * @param string $type
-     *
-     * @return \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer
-     */
     public function getSecurityCheckAuthContextTransfer(string $type): SecurityCheckAuthContextTransfer
     {
         return (new SecurityCheckAuthContextTransfer())
@@ -45,11 +40,6 @@ class SecurityBlockerPageTester extends Actor
             ->setIp('66.66.66.6');
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer
-     *
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
     public function getRequest(SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer): Request
     {
         $route = 'login_check';
@@ -77,11 +67,6 @@ class SecurityBlockerPageTester extends Actor
         return $request;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer
-     *
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
     public function getInvalidRequest(SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer): Request
     {
         $route = 'login_check';

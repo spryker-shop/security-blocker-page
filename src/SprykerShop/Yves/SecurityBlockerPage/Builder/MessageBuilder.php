@@ -22,20 +22,11 @@ class MessageBuilder implements MessageBuilderInterface
      */
     protected $glossaryStorageClient;
 
-    /**
-     * @param \SprykerShop\Yves\SecurityBlockerPage\Dependency\Client\SecurityBlockerPageToGlossaryStorageClientInterface $glossaryStorageClient
-     */
     public function __construct(SecurityBlockerPageToGlossaryStorageClientInterface $glossaryStorageClient)
     {
         $this->glossaryStorageClient = $glossaryStorageClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthResponseTransfer $securityCheckAuthResponseTransfer
-     * @param string $localeName
-     *
-     * @return string
-     */
     public function getExceptionMessage(
         SecurityCheckAuthResponseTransfer $securityCheckAuthResponseTransfer,
         string $localeName
@@ -47,11 +38,6 @@ class MessageBuilder implements MessageBuilderInterface
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthResponseTransfer $securityCheckAuthResponseTransfer
-     *
-     * @return string
-     */
     protected function convertSecondsToReadableTime(
         SecurityCheckAuthResponseTransfer $securityCheckAuthResponseTransfer
     ): string {

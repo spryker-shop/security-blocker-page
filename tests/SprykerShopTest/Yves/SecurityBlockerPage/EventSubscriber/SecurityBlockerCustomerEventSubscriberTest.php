@@ -35,9 +35,6 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
      */
     protected const LOCALE_NAME_EN = 'en';
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerCustomerEventSubscriberWillCallSecurityBlockerClientOnKernelRequestLoginAttempt(): void
     {
         // Arrange
@@ -70,9 +67,6 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, KernelEvents::REQUEST);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerCustomerEventSubscriberWillThrowExceptionOnKernelRequestLoginAttempt(): void
     {
         // Arrange
@@ -107,9 +101,6 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, KernelEvents::REQUEST);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerCustomerEventSubscriberWillNotCallSecurityBlockerClientOnWrongRequest(): void
     {
         // Arrange
@@ -142,9 +133,6 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, KernelEvents::REQUEST);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerCustomerEventSubscriberWillCallSecurityBlockerClientExceptionOnFailedLoginAttempt(): void
     {
         // Arrange
@@ -177,9 +165,6 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, LoginFailureEvent::class);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerCustomerEventSubscriberWillCallSecurityBlockerClientExceptionWrongRequest(): void
     {
         // Arrange
@@ -212,9 +197,6 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, LoginFailureEvent::class);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerCustomerEventSubscriberShouldUseOnlyIPWhenUseEmailForLoginSecurityBlockerConfigDisabled(): void
     {
         // Arrange
@@ -270,11 +252,6 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
         return $securityBlockerPageConfig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer
-     *
-     * @return \Symfony\Component\HttpKernel\Event\RequestEvent
-     */
     protected function getRequestEvent(SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer): RequestEvent
     {
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
@@ -284,11 +261,6 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
         return new RequestEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer
-     *
-     * @return \Symfony\Component\HttpKernel\Event\RequestEvent
-     */
     protected function getInvalidRequestEvent(SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer): RequestEvent
     {
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();

@@ -35,9 +35,6 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
      */
     protected const LOCALE_NAME_EN = 'en';
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerAgentEventSubscriberWillCallSecurityBlockerClientOnKernelRequestLoginAttempt(): void
     {
         // Arrange
@@ -69,9 +66,6 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, KernelEvents::REQUEST);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerAgentEventSubscriberWillThrowExceptionOnKernelRequestLoginAttempt(): void
     {
         // Arrange
@@ -105,9 +99,6 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, KernelEvents::REQUEST);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerAgentEventSubscriberWillNotCallSecurityBlockerClientOnWrongRequest(): void
     {
         // Arrange
@@ -139,9 +130,6 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, KernelEvents::REQUEST);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerAgentEventSubscriberWillCallSecurityBlockerClientExceptionOnFailedLoginAttempt(): void
     {
         // Arrange
@@ -174,9 +162,6 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, LoginFailureEvent::class);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerAgentEventSubscriberWillCallSecurityBlockerClientExceptionWrongRequest(): void
     {
         // Arrange
@@ -209,9 +194,6 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, LoginFailureEvent::class);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerAgentEventSubscriberShouldUseOnlyIPWhenUseEmailForLoginSecurityBlockerConfigDisabled(): void
     {
         // Arrange
@@ -253,11 +235,6 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, LoginFailureEvent::class);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer
-     *
-     * @return \Symfony\Component\HttpKernel\Event\RequestEvent
-     */
     protected function getRequestEvent(SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer): RequestEvent
     {
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
@@ -281,11 +258,6 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
         return $securityBlockerPageConfig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer
-     *
-     * @return \Symfony\Component\HttpKernel\Event\RequestEvent
-     */
     protected function getInvalidRequestEvent(SecurityCheckAuthContextTransfer $securityCheckAuthContextTransfer): RequestEvent
     {
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();

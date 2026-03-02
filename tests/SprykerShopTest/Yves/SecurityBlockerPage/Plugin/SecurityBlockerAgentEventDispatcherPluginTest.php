@@ -27,9 +27,6 @@ class SecurityBlockerAgentEventDispatcherPluginTest extends Unit
      */
     protected $securityBlockerAgentEventDispatcherPlugin;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -45,9 +42,6 @@ class SecurityBlockerAgentEventDispatcherPluginTest extends Unit
         $this->securityBlockerAgentEventDispatcherPlugin->setFactory($securityBlockerPageFactoryMock);
     }
 
-    /**
-     * @return void
-     */
     public function testSecurityBlockerAgentEventDispatcherPluginWillAddSubscriber(): void
     {
         // Arrange
