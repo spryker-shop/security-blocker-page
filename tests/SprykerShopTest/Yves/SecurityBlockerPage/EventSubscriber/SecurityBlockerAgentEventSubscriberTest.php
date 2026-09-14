@@ -241,7 +241,7 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
 
         $request = $this->tester->getRequest($securityCheckAuthContextTransfer);
 
-        return new RequestEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST);
+        return new RequestEvent($kernel, $request, $this->getMainRequestType());
     }
 
     /**
@@ -264,6 +264,11 @@ class SecurityBlockerAgentEventSubscriberTest extends Unit
 
         $request = $this->tester->getInvalidRequest($securityCheckAuthContextTransfer);
 
-        return new RequestEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST);
+        return new RequestEvent($kernel, $request, $this->getMainRequestType());
+    }
+
+    protected function getMainRequestType(): int
+    {
+        return HttpKernelInterface::MAIN_REQUEST;
     }
 }
