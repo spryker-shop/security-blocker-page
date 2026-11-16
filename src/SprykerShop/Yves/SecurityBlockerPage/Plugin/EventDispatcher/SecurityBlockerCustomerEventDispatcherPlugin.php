@@ -14,12 +14,17 @@ use Spryker\Yves\Kernel\AbstractPlugin;
 
 /**
  * @method \SprykerShop\Yves\SecurityBlockerPage\SecurityBlockerPageFactory getFactory()
+ * @method \SprykerShop\Yves\SecurityBlockerPage\SecurityBlockerPageConfig getConfig()
  */
 class SecurityBlockerCustomerEventDispatcherPlugin extends AbstractPlugin implements EventDispatcherPluginInterface
 {
     /**
      * {@inheritDoc}
      * - Adds a listeners to log the failed login attempts and deny customers access in case the limit is exceeded.
+     * - Adds the listeners of the login protection strategy {@link \SprykerShop\Yves\SecurityBlockerPage\SecurityBlockerPageConfig::getLoginProtectionStrategy()}
+     *   selects, by default the per-IP ones above.
+     * - With the `ip-and-account` strategy, failed logins also lock the account regardless of the source IP.
+     * - Throws an exception when no strategy is registered for the selected key.
      *
      * @api
      *
@@ -33,7 +38,7 @@ class SecurityBlockerCustomerEventDispatcherPlugin extends AbstractPlugin implem
         ContainerInterface $container
     ): EventDispatcherInterface {
         $eventDispatcher->addSubscriber(
-            $this->getFactory()->createSecurityBlockerCustomerEventSubscriber(),
+            $this->getFactory()->createCustomerLoginProtectionEventSubscriber(),
         );
 
         return $eventDispatcher;

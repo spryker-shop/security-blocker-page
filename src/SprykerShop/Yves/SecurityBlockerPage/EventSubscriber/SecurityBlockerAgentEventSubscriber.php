@@ -45,9 +45,11 @@ class SecurityBlockerAgentEventSubscriber implements EventSubscriberInterface
     protected const LOGIN_ROUTE = 'agent_login_check';
 
     /**
+     * Runs before the CAPTCHA check of the Captcha module (priority 10), so a blocked login is answered before its CAPTCHA is used.
+     *
      * @var int
      */
-    protected const KERNEL_REQUEST_SUBSCRIBER_PRIORITY = 9;
+    protected const KERNEL_REQUEST_SUBSCRIBER_PRIORITY = 11;
 
     public function __construct(
         protected RequestStack $requestStack,

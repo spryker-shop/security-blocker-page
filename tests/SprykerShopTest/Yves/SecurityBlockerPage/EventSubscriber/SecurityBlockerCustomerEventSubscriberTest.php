@@ -35,6 +35,11 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
      */
     protected const LOCALE_NAME_EN = 'en';
 
+    /**
+     * @uses \Spryker\Yves\Captcha\EventSubscriber\LoginCaptchaEventSubscriber::KERNEL_REQUEST_SUBSCRIBER_PRIORITY
+     */
+    protected const int CAPTCHA_SUBSCRIBER_PRIORITY = 10;
+
     public function testSecurityBlockerCustomerEventSubscriberWillCallSecurityBlockerClientOnKernelRequestLoginAttempt(): void
     {
         // Arrange
@@ -238,6 +243,19 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
         $eventDispatcher->dispatch($event, LoginFailureEvent::class);
     }
 
+    public function testBlockedLoginAttemptIsRejectedBeforeItsCaptchaIsVerified(): void
+    {
+        // Arrange
+        $securityCheckAuthContextTransfer = $this->tester->getSecurityCheckAuthContextTransfer(SecurityBlockerPageConfig::SECURITY_BLOCKER_CUSTOMER_ENTITY_TYPE);
+        $eventDispatcher = $this->createEventDispatcherWithFailingCaptchaListener($this->createSubscriberBlockingEveryLogin());
+
+        // Assert
+        $this->expectException(HttpException::class);
+
+        // Act
+        $eventDispatcher->dispatch($this->getRequestEvent($securityCheckAuthContextTransfer), KernelEvents::REQUEST);
+    }
+
     /**
      * @param bool $useEmailForLoginSecurityBlocker
      *
@@ -273,5 +291,32 @@ class SecurityBlockerCustomerEventSubscriberTest extends Unit
     protected function getMainRequestType(): int
     {
         return HttpKernelInterface::MAIN_REQUEST;
+    }
+
+    protected function createSubscriberBlockingEveryLogin(): SecurityBlockerCustomerEventSubscriber
+    {
+        $securityBlockerClientMock = $this->createMock(SecurityBlockerPageToSecurityBlockerClientInterface::class);
+        $securityBlockerClientMock->method('isAccountBlocked')->willReturn((new SecurityCheckAuthResponseTransfer())->setIsBlocked(true));
+
+        return new SecurityBlockerCustomerEventSubscriber(
+            $this->getMockBuilder(RequestStack::class)->getMock(),
+            $securityBlockerClientMock,
+            $this->getMockBuilder(MessageBuilder::class)->disableOriginalConstructor()->getMock(),
+            $this->getSecurityBlockerPageConfigMock(true),
+            static::LOCALE_NAME_EN,
+            $this->getMockBuilder(SecurityBlockerPageToStoreClientInterface::class)->getMock(),
+        );
+    }
+
+    protected function createEventDispatcherWithFailingCaptchaListener(
+        SecurityBlockerCustomerEventSubscriber $securityBlockerCustomerEventSubscriber
+    ): EventDispatcher {
+        $eventDispatcher = new EventDispatcher();
+        $eventDispatcher->addSubscriber($securityBlockerCustomerEventSubscriber);
+        $eventDispatcher->addListener(KernelEvents::REQUEST, function (): void {
+            $this->fail('The CAPTCHA was verified before the blocked login attempt was rejected.');
+        }, static::CAPTCHA_SUBSCRIBER_PRIORITY);
+
+        return $eventDispatcher;
     }
 }
